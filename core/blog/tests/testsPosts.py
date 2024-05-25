@@ -51,7 +51,7 @@ class PostModelTest(TestCase):
     def test_post_create(self):
         url = reverse("blog:posts.create")
         category = create_category()
-        tags = create_tag(random.randint(1, 5))
+        tags = [create_tag() for _ in range(random.randint(1, 5))]
         data = {
             "title": fake.sentence(),
             "content": fake.text(),

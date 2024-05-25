@@ -1,4 +1,4 @@
-from .views import posts
+from .views import posts, categories, tags
 
 from django.urls import path
 from django.urls.conf import include
@@ -30,5 +30,45 @@ urlpatterns = [
             ]
         ),
         name="comments",
+    ),
+    path(
+        "categories/",
+        include(
+            [
+                path("", categories.category_index, name="categories.index"),
+                path("<int:pk>/", categories.category_detail, name="categories.detail"),
+                path("create/", categories.category_create, name="categories.create"),
+                path(
+                    "<int:pk>/update/",
+                    categories.category_update,
+                    name="categories.update",
+                ),
+                path(
+                    "<int:pk>/delete/",
+                    categories.category_delete,
+                    name="categories.delete",
+                ),
+                path(
+                    "<int:pk>/posts/",
+                    categories.category_posts,
+                    name="categories.posts",
+                ),
+            ]
+        ),
+        name="categories",
+    ),
+    path(
+        "tags/",
+        include(
+            [
+                path("", tags.tag_index, name="tags.index"),
+                path("<int:pk>/", tags.tag_detail, name="tags.detail"),
+                path("create/", tags.tag_create, name="tags.create"),
+                path("<int:pk>/update/", tags.tag_update, name="tags.update"),
+                path("<int:pk>/delete/", tags.tag_delete, name="tags.delete"),
+                path("<int:pk>/posts/", tags.tag_posts, name="tags.posts"),
+            ]
+        ),
+        name="tags",
     ),
 ]
